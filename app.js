@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const vkBot = require('node-vk-bot-api')
+const api = require('node-vk-bot-api/lib/api')
  
 require('dotenv').config();
 
@@ -18,9 +19,12 @@ const bot = new vkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
-bot.on((ctx) => {
-    ctx.reply('Hello!');
-});
+bot.command('victim', async (ctx) => {
+    const response = await bot.execute('users.get', {
+        user_ids: 6205753,
+    })
+    ctx.reply(response);
+})
  
 app.use(bodyParser.json())
 
