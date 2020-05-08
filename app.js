@@ -20,10 +20,11 @@ const bot = new vkBot({
 })
 
 bot.command('victim', async (ctx) => {
+    console.log('choosing victim')
     const response = await bot.execute('users.get', {
         user_ids: 6205753,
     })
-    ctx.reply(response);
+    ctx.reply(response)
 })
  
 app.use(bodyParser.json())
