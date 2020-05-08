@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const vkBot = require('node-vk-bot-api')
 const api = require('node-vk-bot-api/lib/api')
+const Markup = require('node-vk-bot-api/lib/markup')
  
 require('dotenv').config();
 
