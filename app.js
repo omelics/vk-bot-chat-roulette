@@ -64,13 +64,9 @@ function startVictimSearch(peer_id, template, log) {
     })
 }
 
-var inc = 0
-
 bot.on((ctx) => {
     if (ctx.message.text.endsWith('victim')) {
-        const template = templates[Math.min(inc, templates.length - 1)];
-        inc += 1;
-        // const template = randomItem(templates);
+        const template = randomItem(templates);
         startVictimSearch(ctx.message.peer_id, template, (message) => {
             ctx.reply(message);
         });
