@@ -19,22 +19,41 @@ const bot = new vkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
+function later(delay) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, delay);
+    });
+}
+
 async function chooseVictim(peer_id) {
     const data = await api('messages.getConversationMembers', {
         peer_id: peer_id,
         access_token: process.env.TOKEN,
-    })
-    var items = data.response.profiles
-    var victim = items[Math.floor(Math.random() * items.length)]
-    return `${victim.first_name} ${victim.last_name}`
+    }) 
+    const items = data.response.profiles
+    const victim = items[Math.floor(Math.random() * items.length)]
+    return `Жертва на ревью: @id${victim.id} (${victim.first_name} ${victim.last_name}) 😈`    
 }
 
-bot.on(async (ctx) => {
-    if (ctx.message.text.endsWith('victim')) {
-        peer_id = ctx.message.peer_id
-        chooseVictim(peer_id).then((victim) => {
-            ctx.reply(victim)
+function startVictimSearch(peer_id, log) {
+    console.log('Выбираем жертву...')
+    chooseVictim(peer_id).then((victim) => {
+        later(1000).then(() => {
+            log('Гадаем на рунах..')
+            later(1000).then(() => {
+                log(victim)
+            })
         })
+    }).catch((err) => {
+        log(`Произошла ошибка 🥺\n(${JSON.stringify(err.response)})`)
+    })
+}
+
+bot.on((ctx) => {
+    if (ctx.message.text.endsWith('victim')) {
+        const peer_id = ctx.message.peer_id;
+        const log = ctx.reply;
+        startVictimSearch(peer_id, log)
     }
 })
  
