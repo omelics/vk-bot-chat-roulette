@@ -19,14 +19,16 @@ const bot = new vkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
-bot.command('victim', async (ctx) => {
+async function handleVictim(ctx) {
     console.log('choosing victim')
     const response = await bot.execute('users.get', {
         user_ids: 6205753,
         access_token: process.env.TOKEN
     })
     ctx.reply(response)
-})
+}
+
+bot.command('/victim', handleVictim)
  
 app.use(bodyParser.json())
 
