@@ -36,7 +36,7 @@ async function chooseVictim(peer_id) {
 }
 
 function startVictimSearch(peer_id, log) {
-    console.log('Выбираем жертву...')
+    log('Выбираем жертву...')
     chooseVictim(peer_id).then((victim) => {
         later(1000).then(() => {
             log('Гадаем на рунах..')
@@ -51,9 +51,9 @@ function startVictimSearch(peer_id, log) {
 
 bot.on((ctx) => {
     if (ctx.message.text.endsWith('victim')) {
-        const peer_id = ctx.message.peer_id;
-        const log = ctx.reply;
-        startVictimSearch(peer_id, log)
+        startVictimSearch(ctx.message.peer_id, (message) => {
+            ctx.reply(message);
+        });
     }
 })
  
