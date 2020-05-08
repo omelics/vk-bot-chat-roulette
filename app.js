@@ -16,11 +16,11 @@ const bot = new VkBot({
     group_id: process.env.GROUP_ID,
     secret: process.env.SECRET,
     confirmation: process.env.CONFIRMATION,
-  })
- 
-bot.on((ctx) => {
-  ctx.reply('Hello!')
 })
+
+bot.get(/Hi|Hello|Hey/i, message => {
+    bot.send('дороу', message.peer_id);
+});
  
 app.use(bodyParser.json())
 
