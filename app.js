@@ -19,27 +19,42 @@ const bot = new vkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
+const templates = [
+    ['Выбираем жертву', 'Гадаем на рунах', 'Жертва на ревью', '😈'],
+    ['Подбираем лучшего инженера', 'Проводим собеседования', 'Ревью посмотрит уважаемый разработчик', '🎩'],
+    ['Ищем счастливчика', 'Опрашиваем друзей', 'Ревью проведёт', '🤩'],
+    ['Выбираем хорошего мальчика', 'Закупаем лакомства', 'Ревью облает', '🐶'],
+    ['Ищем плохую компанию', 'Шатаемся по району', 'Ревью проведёт чётенький пацан', '😎'],
+    ['Открываем врата ада', 'Нагреваем котлы', 'На вилы поднимет', '👹'],
+    ['Рисуем радугу', 'Радуемся солнцу', 'В этот чудесный день ревью проведёт', '☀️'],
+    ['Изучаем вирус', 'Ищем подопытного кролика', 'На стол к лаборанту попадает', '🧪'],
+]
+
+function randomItem(array) {
+    return array[Math.floor(Math.random() * array.length)]
+}
+
 function later(delay) {
     return new Promise(function(resolve) {
         setTimeout(resolve, delay);
     });
 }
 
-async function chooseVictim(peer_id) {
+async function chooseVictim(peer_id, template) {
     const data = await api('messages.getConversationMembers', {
         peer_id: peer_id,
         access_token: process.env.TOKEN,
     }) 
     const items = data.response.profiles
-    const victim = items[Math.floor(Math.random() * items.length)]
-    return `Жертва на ревью: @id${victim.id} (${victim.first_name} ${victim.last_name}) 😈`    
+    const victim = randomItem(items)
+    return `${template[2]}: @id${victim.id} (${victim.first_name} ${victim.last_name}) ${template[3]}`    
 }
 
-function startVictimSearch(peer_id, log) {
-    log('Выбираем жертву...')
-    chooseVictim(peer_id).then((victim) => {
+function startVictimSearch(peer_id, template, log) {
+    log(`${template[0]}...`)
+    chooseVictim(peer_id, template).then((victim) => {
         later(1000).then(() => {
-            log('Гадаем на рунах..')
+            log(`${template[1]}..`)
             later(1000).then(() => {
                 log(victim)
             })
@@ -49,9 +64,14 @@ function startVictimSearch(peer_id, log) {
     })
 }
 
+var inc = 0
+
 bot.on((ctx) => {
     if (ctx.message.text.endsWith('victim')) {
-        startVictimSearch(ctx.message.peer_id, (message) => {
+        const template = templates[Math.min(inc, templates.length - 1)];
+        inc += 1;
+        // const template = randomItem(templates);
+        startVictimSearch(ctx.message.peer_id, template, (message) => {
             ctx.reply(message);
         });
     }
