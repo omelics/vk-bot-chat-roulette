@@ -23,6 +23,7 @@ bot.command('victim', async (ctx) => {
     console.log('choosing victim')
     const response = await bot.execute('users.get', {
         user_ids: 6205753,
+        access_token: process.env.TOKEN
     })
     ctx.reply(response)
 })
