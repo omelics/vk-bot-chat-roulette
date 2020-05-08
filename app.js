@@ -64,8 +64,14 @@ function startVictimSearch(peer_id, template, log) {
     })
 }
 
+function endsWithAny(suffixes, string) {
+    return suffixes.some(function (suffix) {
+        return string.endsWith(suffix);
+    });
+}
+
 bot.on((ctx) => {
-    if (ctx.message.text.endsWith('victim')) {
+    if (endsWithAny(['го', 'go'],ctx.message.text)) {
         const template = randomItem(templates);
         startVictimSearch(ctx.message.peer_id, template, (message) => {
             ctx.reply(message);
