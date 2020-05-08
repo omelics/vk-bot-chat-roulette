@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const VkBot = require('node-vk-bot-api')
  
+require('dotenv').config();
+
 console.log(process.env.PORT)
 console.log(process.env.TOKEN)
 console.log(process.env.CONFIRMATION)
