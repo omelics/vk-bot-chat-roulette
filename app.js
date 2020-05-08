@@ -30,7 +30,7 @@ async function chooseVictim(peer_id) {
 }
 
 bot.on(async (ctx) => {
-    if (ctx.message.text === "/victim") {
+    if (ctx.message.text.endsWith('victim')) {
         peer_id = ctx.message.peer_id
         chooseVictim(peer_id).then((victim) => {
             ctx.reply(victim)
