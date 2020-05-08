@@ -71,6 +71,8 @@ function endsWithAny(suffixes, string) {
 }
 
 bot.on((ctx) => {
+    console.log(JSON.stringify(ctx))
+    
     if (endsWithAny(['го', 'go'], ctx.message.text)) {
         const template = randomItem(templates)
         startVictimSearch(ctx.message.peer_id, template, (message) => {
