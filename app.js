@@ -19,8 +19,8 @@ const bot = new vkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
-bot.command('/victim', (ctx) => {
-    ctx.reply('VICTIM!')
+bot.on((ctx) => {
+    ctx.reply(JSON.stringify(ctx));
 })
  
 app.use(bodyParser.json())
