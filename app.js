@@ -77,6 +77,7 @@ bot.on((ctx) => {
     if (message) {
         const expr = /\B(\[club[0-9]+\|\w+\]) /g
         const command = message.replace(expr, "")
+        console.log(message, '->', command)
         switch (command) {
             case 'go':
             case 'го':
