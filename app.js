@@ -36,8 +36,8 @@ function randomItem(array) {
 
 function later(delay) {
     return new Promise(function(resolve) {
-        setTimeout(resolve, delay);
-    });
+        setTimeout(resolve, delay)
+    })
 }
 
 async function chooseVictim(peer_id, template) {
@@ -66,16 +66,16 @@ function startVictimSearch(peer_id, template, log) {
 
 function endsWithAny(suffixes, string) {
     return suffixes.some(function (suffix) {
-        return string.endsWith(suffix);
-    });
+        return string.endsWith(suffix)
+    })
 }
 
 bot.on((ctx) => {
     if (endsWithAny(['го', 'go'],ctx.message.text)) {
-        const template = randomItem(templates);
+        const template = randomItem(templates)
         startVictimSearch(ctx.message.peer_id, template, (message) => {
-            ctx.reply(message);
-        });
+            ctx.reply(message)
+        })
     }
 })
  
@@ -86,5 +86,5 @@ app.post('/api', bot.webhookCallback)
 bot.startPolling()
  
 app.listen(process.env.PORT, () => {
-    console.log(`Server is listening on ${process.env.PORT}`);
-});
+    console.log(`Server is listening on ${process.env.PORT}`)
+})
