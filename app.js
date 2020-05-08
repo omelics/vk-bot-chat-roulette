@@ -4,9 +4,9 @@ const VkBot = require('node-vk-bot-api')
  
 require('dotenv').config();
 
-console.log(process.env.PORT)
-console.log(process.env.TOKEN)
-console.log(process.env.CONFIRMATION)
+console.log('PORT:', process.env.PORT)
+console.log('TOKEN:', process.env.TOKEN)
+console.log('CONFIRMATION:', process.env.CONFIRMATION)
 
 const app = express()
 const bot = new VkBot({
