@@ -72,13 +72,23 @@ function endsWithAny(suffixes, string) {
 
 bot.on((ctx) => {
     console.log(JSON.stringify(ctx))
-    
-    if (endsWithAny(['го', 'go'], ctx.message.text)) {
-        const template = randomItem(templates)
-        startVictimSearch(ctx.message.peer_id, template, (message) => {
-            ctx.reply(message)
-        })
-    }
+
+    const message = ctx.message.text
+    if (message) {
+        const expr = /\B(\[club[0-9]+\|\w+\]) /g
+        const command = message.replace(expr, "")
+        switch (command) {
+            case 'go':
+            case 'го':
+                const template = randomItem(templates)
+                startVictimSearch(ctx.message.peer_id, template, (message) => {
+                    ctx.reply(message)
+                })
+                break
+            default:
+                break
+        }
+    }    
 })
  
 app.use(bodyParser.json())
