@@ -10,9 +10,11 @@ console.log('CONFIRMATION:', process.env.CONFIRMATION)
 
 const app = express()
 const bot = new VkBot({
-  token: process.env.TOKEN,
-  confirmation: process.env.CONFIRMATION,
-})
+    token: process.env.TOKEN,
+    group_id: process.env.GROUP_ID,
+    secret: process.env.SECRET,
+    confirmation: process.env.CONFIRMATION,
+  })
  
 bot.on((ctx) => {
   ctx.reply('Hello!')
