@@ -19,8 +19,23 @@ const bot = new vkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
-bot.on((ctx) => {
-    ctx.reply(JSON.stringify(ctx));
+async function chooseVictim(peer_id) {
+    const data = await api('messages.getConversationMembers', {
+        peer_id: peer_id,
+        access_token: process.env.TOKEN,
+    })
+    var items = data.response.profiles
+    var victim = items[Math.floor(Math.random() * items.length)]
+    return `${victim.first_name} ${victim.last_name}`
+}
+
+bot.on(async (ctx) => {
+    if (ctx.message.text === "/victim") {
+        peer_id = ctx.message.peer_id
+        chooseVictim(peer_id).then((victim) => {
+            ctx.reply(victim)
+        })
+    }
 })
  
 app.use(bodyParser.json())
