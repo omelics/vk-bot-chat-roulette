@@ -20,6 +20,6 @@ bot.on((ctx) => {
  
 app.use(bodyParser.json())
 
-app.post('/', bot.webhookCallback)
+app.post('/api', bot.webhookCallback)
  
 app.listen(process.env.PORT)
