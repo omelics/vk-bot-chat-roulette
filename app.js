@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const VkBot = require('node-vk-bot-api')
+const vkBot = require('node-vk-bot-api')
  
 require('dotenv').config();
 
@@ -11,7 +11,7 @@ console.log('SECRET:', process.env.SECRET)
 console.log('CONFIRMATION:', process.env.CONFIRMATION)
 
 const app = express()
-const bot = new VkBot({
+const bot = new vkBot({
     token: process.env.TOKEN,
     group_id: process.env.GROUP_ID,
     secret: process.env.SECRET,
