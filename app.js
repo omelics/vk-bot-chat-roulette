@@ -30,6 +30,8 @@ bot.command('victim', async (ctx) => {
 app.use(bodyParser.json())
 
 app.post('/api', bot.webhookCallback)
+
+bot.start()
  
 app.listen(process.env.PORT, () => {
     console.log(`Server is listening on ${process.env.PORT}`);
