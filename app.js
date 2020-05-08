@@ -18,8 +18,8 @@ const bot = new VkBot({
     confirmation: process.env.CONFIRMATION,
 })
 
-bot.get(/Hi|Hello|Hey/i, message => {
-    bot.send('дороу', message.peer_id);
+bot.on((ctx) => {
+    ctx.reply('Hello!');
 });
  
 app.use(bodyParser.json())
