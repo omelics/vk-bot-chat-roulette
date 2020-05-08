@@ -17,7 +17,7 @@ bot.on((ctx) => {
  
 app.use(bodyParser.json())
 
-app.post('api', function(res, req) {
+app.get('api', function(res, req) {
     console.log('api', res, req)
 })
 app.post('/', bot.webhookCallback)
