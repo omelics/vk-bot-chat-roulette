@@ -86,6 +86,29 @@ bot.on((ctx) => {
                     ctx.reply(message)
                 })
                 break
+            case 'keyboard':
+                ctx.reply(
+                    'Заряжаем барабан...',
+                    null, 
+                    Markup.keyboard([
+                        Markup.button({
+                        action: {
+                            type: 'callback',
+                            label: 'Крутануть',
+                            payload: JSON.stringify({
+                                type: 'callback',
+                                label: 'alert',
+                                payload: JSON.stringify({
+                                    type: 'show_snackbar',
+                                    text: 'Крутим барабан...'
+                                }),
+                            }),
+                        },
+                        color: 'default',
+                        }),
+                    ]),
+                )
+                break
             default:
                 break
         }
