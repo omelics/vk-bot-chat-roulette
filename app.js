@@ -46,12 +46,17 @@ async function chooseVictim(peer_id, template) {
     return `${template[2]} @id${victim.id} (${victim.first_name} ${victim.last_name}) ${template[3]}`    
 }
 
-function startVictimSearch(peer_id, template, log) {
-    chooseVictim(peer_id, template).then((victim) => {
+const sleep = require('util').promisify(setTimeout)
+
+async function startVictimSearch(peer_id, template, log) {
+    try {
+        const victim = await chooseVictim(peer_id, template)
+        await sleep(1000)
         log(`${template[0]}...\n${template[1]}..\n${victim}`)
-    }).catch((err) => {
+    } catch (err) {
+        await sleep(1000)
         log(`Произошла ошибка 🥺\n(${JSON.stringify(err.response)})`)
-    })
+    }
 }
 
 bot.on((ctx) => {
@@ -98,10 +103,6 @@ bot.on((ctx) => {
     }    
 })
 
-bot.event('message_new', (ctx) => {
-    console.log('new message:', JSON.stringify(ctx))
-})
- 
 app.use(bodyParser.json())
 
 app.post('/api', bot.webhookCallback)
