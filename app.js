@@ -65,12 +65,6 @@ function startVictimSearch(peer_id, template, log) {
     })
 }
 
-function endsWithAny(suffixes, string) {
-    return suffixes.some(function (suffix) {
-        return string.endsWith(suffix)
-    })
-}
-
 bot.on((ctx) => {
     console.log(JSON.stringify(ctx))
 
