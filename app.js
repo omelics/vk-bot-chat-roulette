@@ -54,15 +54,17 @@ async function chooseVictim(peer_id, template) {
 
 function startVictimSearch(peer_id, template, log) {
     log(`${template[0]}...`)
-    chooseVictim(peer_id, template).then((victim) => {
-        later(1000).then(() => {
-            log(`${template[1]}..`)
+    later(1000).then(() => {
+        chooseVictim(peer_id, template).then((victim) => {
             later(1000).then(() => {
-                log(victim)
+                log(`${template[1]}..`)
+                later(1000).then(() => {
+                    log(victim)
+                })
             })
+        }).catch((err) => {
+            log(`Произошла ошибка 🥺\n(${JSON.stringify(err.response)})`)
         })
-    }).catch((err) => {
-        log(`Произошла ошибка 🥺\n(${JSON.stringify(err.response)})`)
     })
 }
 
