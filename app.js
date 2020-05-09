@@ -43,7 +43,7 @@ async function chooseVictim(peer_id, template) {
     }) 
     const items = data.response.profiles
     const victim = randomItem(items)
-    return `${template[2]}: @id${victim.id} (${victim.first_name} ${victim.last_name}) ${template[3]}`    
+    return `${template[2]} @id${victim.id} (${victim.first_name} ${victim.last_name}) ${template[3]}`    
 }
 
 function startVictimSearch(peer_id, template, log) {
