@@ -64,8 +64,9 @@ bot.on((ctx) => {
 
     const message = ctx.message.text
     if (message) {
-        const expr = /\B(\[club[0-9]+\|.+\] )?-/g
-        const command = message.replace(expr, "")
+        const expr = /^(?:\[club[0-9]+\|.+\] |-)(\w+)$/g
+        const res = expr.exec(message)
+        const command = res[1]
         console.log(message, '->', command)
         switch (command) {
             case 'review':
