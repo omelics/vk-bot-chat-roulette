@@ -35,12 +35,6 @@ function randomItem(array) {
     return array[Math.floor(Math.random() * array.length)]
 }
 
-function later(delay) {
-    return new Promise(function(resolve) {
-        setTimeout(resolve, delay)
-    })
-}
-
 async function chooseVictim(peer_id, template) {
     console.log(`start messages.getConversationMembers request: peer_id - ${peer_id}, token - ${process.env.TOKEN}`)
     const data = await api('messages.getConversationMembers', {
@@ -53,18 +47,10 @@ async function chooseVictim(peer_id, template) {
 }
 
 function startVictimSearch(peer_id, template, log) {
-    log(`${template[0]}...`)
-    later(1000).then(() => {
-        chooseVictim(peer_id, template).then((victim) => {
-            later(1000).then(() => {
-                log(`${template[1]}..`)
-                later(1000).then(() => {
-                    log(victim)
-                })
-            })
-        }).catch((err) => {
-            log(`Произошла ошибка 🥺\n(${JSON.stringify(err.response)})`)
-        })
+    chooseVictim(peer_id, template).then((victim) => {
+        log(`${template[0]}...\n${template[1]}..\n${victim}`)
+    }).catch((err) => {
+        log(`Произошла ошибка 🥺\n(${JSON.stringify(err.response)})`)
     })
 }
 
