@@ -42,6 +42,7 @@ function later(delay) {
 }
 
 async function chooseVictim(peer_id, template) {
+    console.log(`start messages.getConversationMembers request: peer_id - ${peer_id}, token - ${process.env.TOKEN}`)
     const data = await api('messages.getConversationMembers', {
         peer_id: peer_id,
         access_token: process.env.TOKEN,
