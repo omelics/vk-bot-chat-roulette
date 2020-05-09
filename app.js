@@ -59,12 +59,11 @@ bot.on((ctx) => {
 
     const message = ctx.message.text
     if (message) {
-        const expr = /\B(\[club[0-9]+\|.+\]) /g
+        const expr = /\B(\[club[0-9]+\|.+\]) -/g
         const command = message.replace(expr, "")
         console.log(message, '->', command)
         switch (command) {
-            case 'go':
-            case 'го':
+            case 'review':
                 const template = randomItem(templates)
                 startVictimSearch(ctx.message.peer_id, template, (message) => {
                     ctx.reply(message)
